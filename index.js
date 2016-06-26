@@ -5,10 +5,28 @@ const map = require('./map')
 
 app.set('port', (process.env.PORT || 3000))
 
-app.use('/static', express.static('static'))
+app.get('/zeromq-logo.png', function(req,res) {
+    res.sendFile(path.join(__dirname, './static/zeromq-logo.png'))
+})
+
+app.get('/MD5SUMS', function(req,res) {
+    res.sendFile(path.join(__dirname, './static/MD5SUMS'), {
+        headers: {
+            'Content-Type': 'text/plain'
+        }
+    })
+})
+
+app.get('/SHA1SUMS', function(req,res) {
+    res.sendFile(path.join(__dirname, './static/SHA1SUMS'), {
+        headers: {
+            'Content-Type': 'text/plain'
+        }
+    })
+})
 
 app.get('/', function(req,res) {
-    res.sendFile(path.join(__dirname, './zeromq-download.html'))
+    res.sendFile(path.join(__dirname, './static/zeromq-download.html'))
 })
 
 app.get('*', function (req, res) {
